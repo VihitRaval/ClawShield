@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: clawshield-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/database:/app/database
+      - ./backend/logs:/app/logs
+      - ./backend/config:/app/config
+      # Mount the whole backend for sandbox testing
+      - ./backend:/app/sandbox/project/backend
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LLM_API_KEY=${LLM_API_KEY:-}
+
+  frontend:
+    build: ./frontend
+    container_name: clawshield-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend

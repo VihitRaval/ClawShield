@@ -1,0 +1,36 @@
+{
+    "allowed_directories": [
+        "./sandbox/project/backend"
+    ],
+    "protected_files": [
+        ".env",
+        "database.yml"
+    ],
+    "allowed_commands": [
+        "black",
+        "pytest",
+        "flake8",
+        "ls",
+        "cat",
+        "echo",
+        "mkdir",
+        "touch"
+    ],
+    "blocked_commands": [
+        "rm -rf",
+        "sudo",
+        "git push origin main"
+    ],
+    "max_file_deletions": 2,
+    "max_runtime_seconds": 10,
+    "delegation_scopes": {
+        "TestAgent": {
+            "allowed_directories": [
+                "./sandbox/project/backend/tests"
+            ],
+            "allowed_commands": [
+                "pytest"
+            ]
+        }
+    }
+}
